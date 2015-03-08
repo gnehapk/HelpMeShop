@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>HelpMeChoose - Email</title>
+
+<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="./css/custom-css.css" rel="stylesheet">
+
+    <style type="text/css">
+
+         .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+            color: #fff;
+            background-color: #bf0000;
+            }
+            
+            .jumbotron {
+                background-color: rgba(207, 207, 207, 0.51);
+            }
+        .jumbotron .btn {
+            padding: 14px 24px;
+            font-size: 14px;
+        }
+        #send-button {
+            background-color: #bf0000;
+            color:#fff;
+        }
+
+        #textarea {
+            -moz-appearance: textfield-multiline;
+            -webkit-appearance: textarea;
+            border: 1px solid gray;
+            font: medium -moz-fixed;
+            font: -webkit-small-control;
+            height: 28px;
+            overflow: auto;
+            padding: 2px;
+            resize: both;
+            height: auto;   
+        }
+</style>
+
+  </head>
+
+<?php
+
+//print_r(  $_COOKIE["hmc"] );
+$data = json_decode($_COOKIE["hmc2"] , true) ;
+//print_r( $data['html']  );
+$cooked_data = json_decode( $data['html'] , true) ;
+//print_r( $cooked_data );
+//
+// 0 --- 1 -- 2 and so on  after pins -> 0 -> image 
+//printf( " image is %s <br> " , $cooked_data['pins'][0]['image'] );
+//printf( " caption  is %s <br> " , $cooked_data['pins'][0]['caption'] );
+//printf( " source is %s <br> " , $cooked_data['pins'][0]['source'] );
+?>
+
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation">
+                <a href="./fb-post.php" class="btn"><span class="glyphicon glyphicon-thumbs-up"></span> Facebook</a></li>
+            <li role="presentation" class="active">
+                <a href="./email-post.php" class="btn"><span class="glyphicon glyphicon-envelope"></span> Email</a>
+            </li>
+            <li role="presentation">
+                <a href="./pollresults.php" class="btn"><span class="glyphicon glyphicon-stats"></span> Poll-Results</a>
+            </li>
+            <li role="presentation"><a href="./about.html" target="_blank" class="btn"><span class="glyphicon glyphicon-registration-mark"></span> About</a></li>
+            <li role="presentation"><a href="./demo.html" target="=_blank" class="btn"><span class="glyphicon glyphicon-film"></span> Demo</a></li>
+            <li role="presentation"><a href="javascript:window.close();" class="btn"><span class="glyphicon glyphicon-remove-sign"></span> </a></li>
+
+          </ul>
+        </nav>
+        <h3 class="text-muted"> <img style="width:190px;height:70px;" src="http://localhost/hmc/pluginassets/logo_new.png"> </h3>
+      </div>
+
+      <div class="jumbotron">
+
+        <h2 style="color:#3b5998;">
+        <img width="50px" height="50px;" src="//icons.iconarchive.com/icons/graphicloads/100-flat-2/256/email-icon.png">
+        Email</h2>
+        <p class="lead">Use the Email service to ask anyone to help you choose the products you want to buy.</p>
+        <p>
+            
+
+        </p>
+      </div>
+
+
+
+
+      <div class="row">
+          
+          <!-- /.modal compose message -->
+                <div class="">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> -->
+                        <h4 class="modal-title">Compose Message</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form role="form" class="form-horizontal">
+                            <div class="form-group">
+                              <label class="col-sm-2" for="inputTo">To</label>
+                              <div class="col-sm-10"><input type="email" class="form-control" id="inputTo" placeholder="Start typing contact name..." data-validate="required, email" data-required-message="Email address missing"></div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-2" for="inputSubject">Subject</label>
+                              <div class="col-sm-10"><input type="text" class="form-control" id="inputSubject" placeholder="Help me choose the following products."></div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-12" for="inputBody">Message</label>
+                              <div class="col-sm-12">
+                                <textarea class="form-control" id="inputBody" rows="6"></textarea>
+                              <div class="row">
+            <div class="col-lg-12">
+                <h5>Selected Products</h5>
+            </div>
+        </div>
+                                <div id="textarea" contenteditable>
+                                    <table width="450" style="text-align:left;border-spacing:0px">
+        <tbody>
+            <tr>
+
+                <!-- Image section -->
+                <td valign="top">
+
+
+
+                    <div style="margin-left:40px;margin-right:35px">
+                        <input type="radio" name="item" style="margin-left: -15px;margin-top: 12px;">
+			<a href="<?php echo $cooked_data["pins"][0]['image'] ?>" target="_blank">
+			<img src="<?php echo urldecode($cooked_data['pins'][0]['image']) ?>" width="90" alt="<Product_name>" height="90" border="0">
+          </a>
+                    </div>
+                    <div style="line-height:20px;font-size:4px">
+                        &nbsp;
+                    </div>
+                </td>
+                <!-- Title section -->
+                <td valign="top">
+
+                    <div style="margin-right:20px;width:280px">
+                        <a href="<itemUrl>" target="_blank" style="text-decoration: none;">
+                            <span style="font-size:18px;color:#666666;font-family:arial,helvetica,verdana,sans-serif;text-decoration: none;">
+              <?php  echo urldecode($cooked_data['pins'][0]['caption']) ;  ?> 
+  </span>
+                            <div style="line-height:4px;font-size:4px;padding:0px;margin:0px">
+                                &nbsp;
+                            </div>
+    <span style="font-size:1px">
+      &nbsp; 
+    </span>
+                            </span>
+                        </a>
+                        <div style="line-height:15px;font-size:15px">
+                            &nbsp;
+                        </div>
+                        <table style="border-spacing:0px">
+                            <tbody>
+                                <tr>
+                                    <td align="center" nowrap="">
+                                        <div style="line-height:5px;font-size:5px">
+                                            &nbsp;
+                                        </div>
+                                        <div style="font-size:12px;color:#000001;font-family:arial,helvetica,verdana,sans-serif" nowrap="">
+
+                                            <textarea rows="3" cols="20" placeholder="Comment.."></textarea>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <span style="line-height:20px;font-size:4px">
+      &nbsp; 
+    </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div style="line-height:1px;border-bottom:solid #cccccc 1px;margin-left:18px;margin-right:18px">
+                        &nbsp;
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <!-- Image section -->
+                <td valign="top">
+                    <input type="radio" name="item" style="margin-left: 25px;margin-top: 12px;">
+                    <div style="margin-left:40px;margin-right:35px">
+                        <a href="
+<itemUrl>
+" target="_blank">
+<img src="<?php echo urldecode($cooked_data['pins'][1]['image']) ?>" width="90" alt="
+<Product_name>
+" height="90" border="0">
+          </a>
+                    </div>
+                    <div style="line-height:20px;font-size:4px">
+                        &nbsp;
+                    </div>
+                </td>
+                <!-- Title section -->
+                <td valign="top">
+                    <div style="margin-right:20px;width:280px">
+                        <a href="
+<itemUrl>
+" target="_blank" style="text-decoration: none;">
+                            <span style="font-size:18px;color:#666666;font-family:arial,helvetica,verdana,sans-serif;text-decoration: none;">
+<?php echo urldecode($cooked_data['pins'][1]['caption']) ; ?>
+  </span>
+                            <div style="line-height:4px;font-size:4px;padding:0px;margin:0px">
+                                &nbsp;
+                            </div>
+    <span style="font-size:1px">
+      &nbsp; 
+    </span>
+                            </span>
+                        </a>
+                        <div style="line-height:15px;font-size:15px">
+                            &nbsp;
+                        </div>
+                        <table style="border-spacing:0px">
+                            <tbody>
+                                <tr>
+                                    <td align="center" nowrap="">
+                                        <div style="line-height:5px;font-size:5px">
+                                            &nbsp;
+                                        </div>
+                                        <div style="font-size:12px;color:#000001;font-family:arial,helvetica,verdana,sans-serif" nowrap="">
+
+                                            <textarea rows="3" cols="20" placeholder="Comment.."></textarea>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <span style="line-height:20px;font-size:4px">
+      &nbsp; 
+    </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div style="line-height:1px;border-bottom:solid #cccccc 1px;margin-left:18px;margin-right:18px">
+                        &nbsp;
+                    </div>
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <!-- Image section -->
+                <td valign="top">
+                    <input type="radio" name="item" style="margin-left: 25px;margin-top: 12px;">
+                    <div style="margin-left:40px;margin-right:35px">
+                        <a href="
+<itemUrl>
+" target="_blank">
+<img src= "<?php echo urldecode($cooked_data['pins'][2]['image']) ?>" width="90" alt="
+<Product_name>
+" height="90" border="0">
+          </a>
+                    </div>
+                    <div style="line-height:20px;font-size:4px">
+                        &nbsp;
+                    </div>
+                </td>
+                <!-- Title section -->
+                <td valign="top">
+                    <div style="margin-right:20px;width:280px">
+                        <a href="
+<itemUrl>
+" target="_blank" style="text-decoration: none;">
+                            <span style="font-size:18px;color:#666666;font-family:arial,helvetica,verdana,sans-serif;text-decoration: none;">
+   <?php echo urldecode($cooked_data['pins'][0]['caption']) ; ?>
+  </span>
+                            <div style="line-height:4px;font-size:4px;padding:0px;margin:0px">
+                                &nbsp;
+                            </div>
+    <span style="font-size:1px">
+      &nbsp; 
+    </span>
+                            </span>
+                        </a>
+                        <div style="line-height:15px;font-size:15px">
+                            &nbsp;
+                        </div>
+                        <table style="border-spacing:0px">
+                            <tbody>
+                                <tr>
+                                    <td align="center" nowrap="">
+                                        <div style="line-height:5px;font-size:5px">
+                                            &nbsp;
+                                        </div>
+                                        <div style="font-size:12px;color:#000001;font-family:arial,helvetica,verdana,sans-serif" nowrap="">
+
+                                            <textarea rows="3" cols="20" placeholder="Comment.."></textarea>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <span style="line-height:20px;font-size:4px">
+      &nbsp; 
+    </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div style="background-color: #CC0000;width: 146px;margin:auto;">
+                        <a style="color: #FFF;text-decoration: none;font-weight: bold;width: 126px;padding: 10px;display: block;text-align: center;" href="#">
+            Submit 
+          </a>
+                    </div>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+                                </div>
+                                </div>
+                            </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button> 
+                        <button type="button" class="btn btn-warning pull-left">Save Draft</button> -->
+                        <button id="send-button" href="#" onclick="mail.php()"  class="btn btn-lg"><span class="glyphicon glyphicon-send"></span>Send</button>
+                        <p class="help-block"></p>
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal compose message -->
+      </div>
+
+
+
+        <!-- Page Features -->
+        <div class="row text-center">
+
+
+        </div>
+
+        <!-- /.row -->
+
+
+
+    </div> <!-- /container -->
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="./js/validator.js"></script>
+  </body>
+</html>
